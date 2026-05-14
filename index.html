@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMESIM | Premium Financial Information Consulting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #0F52BA;
+            --secondary: #D4AF37;
+            --accent: #2E8B57;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --gray: #6B7280;
+        }
+
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            height: 90vh;
+            background: linear-gradient(rgba(15,82,186,0.8), rgba(46,139,87,0.8)), url('https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Section General */
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+
+        .service-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* About Page */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        /* 新增的About页面样式 */
+        .about-mission, .about-values, .about-team, .about-history, .about-achievements {
+            margin-bottom: 5rem;
+        }
+
+        .mission-content {
+            background: linear-gradient(135deg, rgba(15,82,186,0.05), rgba(46,139,87,0.05));
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .mission-content h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .value-card h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--secondary);
+        }
+
+        .team-member h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .position {
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .history-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 4px solid var(--primary);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .achievement-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-detail i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            width: 30px;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .footer-col p, .footer-col a {
+            color: #ccc;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Page Sections (Hidden by Default) */
+        .page {
+            display: none;
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <a href="#home" class="logo">MMESIM</a>
+        <div class="nav-links">
+            <a href="#home" class="nav-link active" data-page="home">Home</a>
+            <a href="#about" class="nav-link" data-page="about">About Us</a>
+            <a href="#services" class="nav-link" data-page="services">Services</a>
+            <a href="#gallery" class="nav-link" data-page="gallery">Gallery</a>
+            <a href="#contact" class="nav-link" data-page="contact">Contact Us</a>
+        </div>
+        <button class="mobile-menu-btn" id="menuBtn">☰</button>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Premium Financial Information Consulting</h1>
+                <p>Professional financial guidance and strategic consulting services for individuals and businesses worldwide.</p>
+                <a href="#contact" class="btn" data-page="contact">Get In Touch</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <h2>Welcome to MMESIM</h2>
+                <p>We deliver expert financial insights and customized consulting solutions to help you achieve your financial goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page (增强版) -->
+    <section id="about" class="page">
+        <div class="section">
+            <div class="section-title">
+                <h2>About MMESIM</h2>
+                <p>Your trusted partner in professional financial consulting services</p>
+            </div>
+
+            <!-- 公司基本介绍 -->
+            <div class="about-content">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="About MMESIM" class="gallery-img">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>MMESIM is a leading financial information consulting firm based in Oxford, England, dedicated to providing high-quality financial advisory services to clients across the globe. Established in 2010, we have grown from a boutique consulting firm to a trusted partner for over 500+ clients worldwide.</p>
+                    <p>Our team of experienced financial professionals combines deep industry knowledge with personalized service to deliver tailored solutions that meet your unique financial needs. We pride ourselves on our client-centric approach, ensuring that every solution is aligned with your specific goals and risk tolerance.</p>
+                    <p>We specialize in comprehensive financial analysis, strategic planning, investment consulting, and risk management services designed to optimize your financial success. Our global perspective combined with local market expertise sets us apart in the competitive financial consulting landscape.</p>
+                    <p>With our headquarters in the heart of Oxford, we maintain international standards of excellence and professionalism in every service we provide, adhering to the highest ethical and regulatory standards.</p>
+                </div>
+            </div>
+
+            <!-- 公司使命 -->
+            <div class="about-mission">
+                <div class="section-title">
+                    <h2>Our Mission</h2>
+                    <p>Guiding our clients towards financial success through expert advice and personalized solutions</p>
+                </div>
+                <div class="mission-content">
+                    <h3>Empowering Financial Futures</h3>
+                    <p>At MMESIM, our mission is to empower individuals and businesses to make informed financial decisions that drive long-term success and stability. We are committed to delivering transparent, ethical, and results-driven financial consulting services that exceed our clients' expectations.</p>
+                    <p>We believe that financial literacy and strategic planning are the cornerstones of financial freedom, and we strive to make these resources accessible to all our clients, regardless of their financial background or goals.</p>
+                </div>
+            </div>
+
+            <!-- 核心价值观 -->
+            <div class="about-values">
+                <div class="section-title">
+                    <h2>Core Values</h2>
+                    <p>The principles that guide everything we do</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i>🔍</i>
+                        <h4>Integrity</h4>
+                        <p>We uphold the highest ethical standards in all our interactions, ensuring complete transparency and honesty in our financial advice.</p>
+                    </div>
+                    <div class="value-card">
+                        <i>🤝</i>
+                        <h4>Client Focus</h4>
+                        <p>Our clients' needs are at the center of everything we do, with personalized solutions tailored to individual circumstances and goals.</p>
+                    </div>
+                    <div class="value-card">
+                        <i>📚</i>
+                        <h4>Expertise</h4>
+                        <p>We continuously invest in professional development to stay ahead of industry trends and maintain our position as financial experts.</p>
+                    </div>
+                    <div class="value-card">
+                        <i>💡</i>
+                        <h4>Innovation</h4>
+                        <p>We embrace new technologies and methodologies to deliver cutting-edge financial solutions that adapt to changing market conditions.</p>
+                    </div>
+                    <div class="value-card">
+                        <i>🌍</i>
+                        <h4>Global Perspective</h4>
+                        <p>We combine local market knowledge with international expertise to provide comprehensive financial guidance in an interconnected world.</p>
+                    </div>
+                    <div class="value-card">
+                        <i>✅</i>
+                        <h4>Excellence</h4>
+                        <p>We are committed to delivering the highest quality service, with a relentless pursuit of excellence in every aspect of our work.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 团队介绍 -->
+            <div class="about-team">
+                <div class="section-title">
+                    <h2>Our Leadership Team</h2>
+                    <p>Meet the financial experts behind MMESIM's success</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="CEO">
+                        <h4>Johnathan Smith</h4>
+                        <p class="position">CEO & Founder</p>
+                        <p>20+ years of experience in international finance, former senior advisor at a top global bank.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="CFO">
+                        <h4>Rebecca Jones</h4>
+                        <p class="position">Chief Financial Officer</p>
+                        <p>Specializes in risk management and portfolio optimization with a background in Oxford University's finance program.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Investment Director">
+                        <h4>Michael Chen</h4>
+                        <p class="position">Investment Director</p>
+                        <p>Expert in global markets and alternative investments, previously with a leading hedge fund.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Client Services Director">
+                        <h4>Sophia Williams</h4>
+                        <p class="position">Client Services Director</p>
+                        <p>Focused on client experience and relationship management, ensuring personalized service for all clients.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 发展历程 -->
+            <div class="about-history">
+                <div class="section-title">
+                    <h2>Our Journey</h2>
+                    <p>From humble beginnings to global financial consulting leader</p>
+                </div>
+                <div class="history-timeline">
+                    <div class="timeline-item">
+                        <h4>2010</h4>
+                        <p>MMESIM founded in Oxford by Johnathan Smith with a small team of financial experts.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2013</h4>
+                        <p>Expanded services to include international investment consulting and opened first regional office.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2016</h4>
+                        <p>Surpassed 100 clients and launched specialized risk management division.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2019</h4>
+                        <p>Recognized as "Top Financial Consulting Firm" by UK Finance Awards and expanded to 50+ team members.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2022</h4>
+                        <p>Launched digital financial advisory platform and expanded client base to over 500 global clients.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2024</h4>
+                        <p>Continued growth with focus on sustainable finance and ESG investment consulting services.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 荣誉资质 -->
+            <div class="about-achievements">
+                <div class="section-title">
+                    <h2>Our Achievements</h2>
+                    <p>Recognitions and accreditations that validate our expertise</p>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <i>🏆</i>
+                        <h4>UK Finance Awards 2019</h4>
+                        <p>Winner - Best Financial Consulting Firm (Mid-size)</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i>🏆</i>
+                        <h4>Oxford Business Awards 2021</h4>
+                        <p>Finalist - Excellence in Financial Services</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i>🏆</i>
+                        <h4>Chartered Financial Analyst (CFA) Accredited</h4>
+                        <p>All senior advisors hold CFA or equivalent professional certifications</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i>🏆</i>
+                        <h4>ISO 9001 Certified</h4>
+                        <p>Quality management system certification for service excellence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Page -->
+    <section id="services" class="page">
+        <div class="section">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive financial consulting solutions tailored to your needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Financial Planning</h3>
+                    <p>Customized financial planning strategies to secure your future and achieve long-term financial stability.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Investment Consulting</h3>
+                    <p>Expert investment advice and portfolio management to maximize returns and minimize risks.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Risk Management</h3>
+                    <p>Comprehensive risk assessment and mitigation strategies for individuals and businesses.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Market Analysis</h3>
+                    <p>Detailed financial market research and analysis to inform your investment decisions.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Business Finance</h3>
+                    <p>Strategic financial guidance for businesses including growth planning and capital management.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Wealth Management</h3>
+                    <p>Professional wealth management services to preserve and grow your assets effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Page -->
+    <section id="gallery" class="page">
+        <div class="section">
+            <div class="section-title">
+                <h2>Our Gallery</h2>
+                <p>Visual insights into our professional financial services</p>
+            </div>
+            <div class="gallery-grid">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Financial Consulting" class="gallery-img">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Financial Analysis" class="gallery-img">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Investment Planning" class="gallery-img">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Wealth Management" class="gallery-img">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Business Consulting" class="gallery-img">
+                <img src="https://drive.google.com/file/d/1yn_q_bQ6W7OROSf-AVuGZDvDw0TGj4as/view?usp=drive_link" alt="Financial Strategy" class="gallery-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <div class="section">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our professional financial consulting team</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-detail">
+                        <i>📍</i>
+                        <div>
+                            <strong>Address:</strong>
+                            <p>England Oxford 21 Walton St</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i>📞</i>
+                        <div>
+                            <strong>Phone:</strong>
+                            <p>+44 7531297276</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i>📧</i>
+                        <div>
+                            <strong>Email:</strong>
+                            <p>info@mmesim.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-detail">
+                        <i>⏰</i>
+                        <div>
+                            <strong>Working Hours:</strong>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <div class="success-message" id="successMsg">Your message has been submitted successfully!</div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Your Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>MMESIM</h4>
+                <p>Premium financial information consulting services delivering excellence in financial guidance.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#home" data-page="home">Home</a>
+                <a href="#about" data-page="about">About Us</a>
+                <a href="#services" data-page="services">Services</a>
+                <a href="#contact" data-page="contact">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p>England Oxford 21 Walton St</p>
+                <p>+44 7531297276</p>
+                <p>info@mmesim.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 MMESIM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Page Navigation System
+        const navLinksAll = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        
+        navLinksAll.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active classes
+                navLinksAll.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                
+                // Add active classes
+                link.classList.add('active');
+                const targetPage = link.getAttribute('data-page');
+                document.getElementById(targetPage).classList.add('active');
+                
+                // Close mobile menu
+                navLinks.classList.remove('active');
+                
+                // Scroll to top of page
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMsg');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            successMsg.style.display = 'block';
+            contactForm.reset();
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
